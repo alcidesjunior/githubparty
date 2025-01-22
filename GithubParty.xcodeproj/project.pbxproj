@@ -19,6 +19,7 @@
 		1ACB10342D40AEE2008FDBB5 /* DomainInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1ACB10332D40AEE2008FDBB5 /* DomainInterface */; };
 		1ACB10362D40AEE2008FDBB5 /* HomeModule in Frameworks */ = {isa = PBXBuildFile; productRef = 1ACB10352D40AEE2008FDBB5 /* HomeModule */; };
 		1ACB10382D40AEE2008FDBB5 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 1ACB10372D40AEE2008FDBB5 /* Utils */; };
+		1ACB103C2D417744008FDBB5 /* TestUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 1ACB103B2D417744008FDBB5 /* TestUtils */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		1ACB10292D40AB00008FDBB5 /* DomainInterface */ = {isa = PBXFileReference; lastKnownFileType = text; path = DomainInterface; sourceTree = SOURCE_ROOT; };
 		1ACB102A2D40AB26008FDBB5 /* Utils */ = {isa = PBXFileReference; lastKnownFileType = text; path = Utils; sourceTree = SOURCE_ROOT; };
 		1ACB102B2D40AB4C008FDBB5 /* HomeModule */ = {isa = PBXFileReference; lastKnownFileType = text; path = HomeModule; sourceTree = SOURCE_ROOT; };
+		1ACB103A2D417734008FDBB5 /* TestUtils */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestUtils; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			files = (
 				1ACB10382D40AEE2008FDBB5 /* Utils in Frameworks */,
 				1ACB10342D40AEE2008FDBB5 /* DomainInterface in Frameworks */,
+				1ACB103C2D417744008FDBB5 /* TestUtils in Frameworks */,
 				1ACB10322D40AEE2008FDBB5 /* Domain in Frameworks */,
 				1ACB10362D40AEE2008FDBB5 /* HomeModule in Frameworks */,
 				1ACB10302D40AEE2008FDBB5 /* DataInterface in Frameworks */,
@@ -95,6 +98,7 @@
 		1A7146572D408C75009632B3 /* GithubParty */ = {
 			isa = PBXGroup;
 			children = (
+				1ACB103A2D417734008FDBB5 /* TestUtils */,
 				1ACB102B2D40AB4C008FDBB5 /* HomeModule */,
 				1ACB102A2D40AB26008FDBB5 /* Utils */,
 				1ACB10292D40AB00008FDBB5 /* DomainInterface */,
@@ -149,6 +153,7 @@
 				1ACB10332D40AEE2008FDBB5 /* DomainInterface */,
 				1ACB10352D40AEE2008FDBB5 /* HomeModule */,
 				1ACB10372D40AEE2008FDBB5 /* Utils */,
+				1ACB103B2D417744008FDBB5 /* TestUtils */,
 			);
 			productName = GithubParty;
 			productReference = 1A7146552D408C75009632B3 /* GithubParty.app */;
@@ -539,6 +544,10 @@
 		1ACB10372D40AEE2008FDBB5 /* Utils */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utils;
+		};
+		1ACB103B2D417744008FDBB5 /* TestUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TestUtils;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

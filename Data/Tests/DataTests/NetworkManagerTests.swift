@@ -1,5 +1,6 @@
 import XCTest
 import DataInterface
+import TestUtils
 
 @testable import Data
 
@@ -7,7 +8,6 @@ final class NetworkManagerTests: XCTestCase {
     private let urlSessionStub = URLSessionStub()
     private let jsonDecoderSpy = JSONDecoderSpy()
     private let requestBuilderSpy = RequestBuilderSpy()
-    private let requestStub = RequestProtocolStub()
     
     private lazy var sut = NetworkManager(
         session: urlSessionStub,
@@ -16,7 +16,7 @@ final class NetworkManagerTests: XCTestCase {
     )
     
     func test_execute_decodesResponseToDataModelDummy() {
-        requestStub.method = .get
+        let requestStub = RequestProtocolStub(path: "example.com", method: .get, encoding: .json)
         let jsonResponse = "{\"name\": \"Alcides\", \"age\": 30}"
 
         guard let mockResponseData = jsonResponse.data(using: .utf8) else {
@@ -56,7 +56,7 @@ final class NetworkManagerTests: XCTestCase {
     }
     
     func test_execute_handlesNoDataError() {
-        requestStub.method = .get
+        let requestStub = RequestProtocolStub(path: "example.com", method: .get, encoding: .json)
         urlSessionStub.dataToReturn = nil
         
         guard let url = URL(string: "https://example.com") else {
@@ -87,7 +87,7 @@ final class NetworkManagerTests: XCTestCase {
     }
     
     func test_execute_handlesInvalidResponseError() {
-        requestStub.method = .get
+        let requestStub = RequestProtocolStub(path: "example.com", method: .get, encoding: .json)
         let jsonResponse = "{\"name\": \"Alcides\", \"age\": 30}"
         guard let mockResponseData = jsonResponse.data(using: .utf8) else {
             XCTFail("Fail when try to encode mock response data")
@@ -123,7 +123,7 @@ final class NetworkManagerTests: XCTestCase {
     }
     
     func test_execute_handlesGenericError() {
-        requestStub.method = .get
+        let requestStub = RequestProtocolStub(path: "example.com", method: .get, encoding: .json)
         urlSessionStub.errorToReturn = NSError(domain: "com.example", code: 123, userInfo: nil)
         let mockError = NSError(domain: "com.example", code: 123, userInfo: nil)
         var result: Result<DataModelDummy, Error>?
@@ -145,7 +145,7 @@ final class NetworkManagerTests: XCTestCase {
     }
     
     func test_execute_handlesFailedToDecodeError() {
-        requestStub.method = .get
+        let requestStub = RequestProtocolStub(path: "example.com", method: .get, encoding: .json)
         urlSessionStub.dataToReturn = Data()
         let mockError = NSError(domain: "com.example", code: 123, userInfo: nil)
         guard let url = URL(string: "https://example.com") else {
