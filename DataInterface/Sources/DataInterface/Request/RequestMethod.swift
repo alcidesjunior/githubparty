@@ -1,6 +1,6 @@
 import Foundation
 
-enum RequestMethod: String {
+public enum RequestMethod: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"
@@ -8,6 +8,6 @@ enum RequestMethod: String {
     case patch = "PATCH"
 }
 
-enum ApiSetup: String {
+public enum ApiSetup: String {
     case baseURL = "https://api.themoviedb.org"
 }

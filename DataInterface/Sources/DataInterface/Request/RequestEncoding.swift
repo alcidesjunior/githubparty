@@ -1,6 +1,6 @@
 import Foundation
 
-enum RequestEncoding {
+public enum RequestEncoding {
     case json
     case query
 }
