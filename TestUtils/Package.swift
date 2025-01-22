@@ -4,36 +4,28 @@
 import PackageDescription
 
 let package = Package(
-    name: "Data",
+    name: "TestUtils",
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Data",
-            targets: ["Data"]),
+            name: "TestUtils",
+            targets: ["TestUtils"]
+        ),
     ],
     dependencies: [
         .package(path: "../DataInterface"),
         .package(path: "../DomainInterface"),
-        .package(path: "../TestUtils")
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Data",
+            name: "TestUtils",
             dependencies: [
                 .product(name: "DataInterface", package: "DataInterface"),
                 .product(name: "DomainInterface", package: "DomainInterface"),
-                .product(name: "TestUtils", package: "TestUtils")
             ]
         ),
         .testTarget(
-            name: "DataTests",
-            dependencies: [
-                "Data",
-                .product(name: "DataInterface", package: "DataInterface"),
-                .product(name: "DomainInterface", package: "DomainInterface"),
-            ]
-        ),
+            name: "TestUtilsTests",
+            dependencies: ["TestUtils"]),
     ]
 )
