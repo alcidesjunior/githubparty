@@ -11,11 +11,20 @@ let package = Package(
             name: "Domain",
             targets: ["Domain"]),
     ],
+    dependencies: [
+        .package(path: "../DomainInterface"),
+        .package(path: "../TestUtils")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Domain"),
+            name: "Domain",
+            dependencies: [
+                .product(name: "DomainInterface", package: "DomainInterface"),
+                .product(name: "TestUtils", package: "TestUtils")
+            ]
+        ),
         .testTarget(
             name: "DomainTests",
             dependencies: ["Domain"]),
