@@ -12,7 +12,7 @@ public protocol HomeViewProtocol: UIView {
 
 public protocol HomeViewDelegate: AnyObject {
     func loadMoreData()
-    func didTapCell(reposUrl: String)
+    func didTapCell(reposUrl: String, repoName: String)
     func displayError(message: String)
 }
 
@@ -115,8 +115,10 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard dataSource.indices.contains(indexPath.row) else { return }
-        let reposUrl = dataSource[indexPath.row].reposUrl
-        delegate?.didTapCell(reposUrl: reposUrl)
+        delegate?.didTapCell(
+            reposUrl: dataSource[indexPath.row].reposUrl,
+            repoName: dataSource[indexPath.row].repositoryName
+        )
     }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
