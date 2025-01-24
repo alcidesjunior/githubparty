@@ -4,7 +4,7 @@
 //
 //  Created by Alcides Junior on 21/01/25.
 //
-
+import HomeModule
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let homeViewController = ViewController()
+        let homeViewController = HomeConfigurator.make()
         window?.rootViewController = homeViewController
         window?.makeKeyAndVisible()
     }

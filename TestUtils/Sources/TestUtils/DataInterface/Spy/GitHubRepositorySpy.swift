@@ -9,7 +9,7 @@ public final class GitHubRepositorySpy: GitHubRepositoryProtocol {
     
     public init() {}
     
-    public func fecthGithubRepositories(request: RequestProtocol, completion: @escaping (Result<GitHubResponse, Error>) -> Void) {
+    public func fecthGithubRepositories(page: Int = 0, request: RequestProtocol, completion: @escaping (Result<GitHubResponse, Error>) -> Void) {
         fecthGithubRepositoriesCalled = true
         requestPassed = request
         

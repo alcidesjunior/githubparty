@@ -6,14 +6,16 @@ public extension GitHubItem {
         id: Int = 1,
         name: String = "",
         description: String? = nil,
-        stargazers_count: Int = 1,
+        stars: Int = 1,
+        forks: Int = 1,
         owner: GitHubOwner = .fixture()
     ) -> Self {
         .init(
             id: id,
             name: name,
             description: description,
-            stargazers_count: stargazers_count,
+            stargazersCount: stars,
+            forksCount: forks,
             owner: owner
         )
     }

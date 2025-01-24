@@ -17,7 +17,7 @@ final class GetRepositoriesUseCaseTests: XCTestCase {
         repositorySpy.completionToBeReturned = .success(responseToBeCompared)
         
         var resultToBeCompared: Result<GitHubResponse, Error>?
-        sut.execute { result in
+        sut.execute(page: 1) { result in
             resultToBeCompared = result
         }
         
@@ -35,7 +35,7 @@ final class GetRepositoriesUseCaseTests: XCTestCase {
         repositorySpy.completionToBeReturned = .failure(errorToBeCompared)
         
         var resultToBeCompared: Result<GitHubResponse, Error>?
-        sut.execute { result in
+        sut.execute(page: 1) { result in
             resultToBeCompared = result
         }
         

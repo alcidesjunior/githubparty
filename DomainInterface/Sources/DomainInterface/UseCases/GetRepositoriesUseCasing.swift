@@ -1,5 +1,5 @@
 import Foundation
 
 public protocol GetRepositoriesUseCasing {
-    func execute(completion: @escaping (Result<GitHubResponse, Error>) -> Void)
+    func execute(page: Int, completion: @escaping (Result<GitHubResponse, Error>) -> Void)
 }

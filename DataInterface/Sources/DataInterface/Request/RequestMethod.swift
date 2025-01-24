@@ -9,5 +9,6 @@ public enum RequestMethod: String {
 }
 
 public enum ApiSetup: String {
-    case baseURL = "https://api.themoviedb.org"
+    case baseURL = "https://api.github.com"
+    case homeItemsPerPage = "20"
 }

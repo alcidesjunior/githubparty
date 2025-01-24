@@ -14,7 +14,7 @@ final class GitHubServiceTests: XCTestCase {
         networkManagerSpy.completionToBeReturned = .success(responseToBeCompared)
         
         var resultToBeCompared: Result<GitHubResponse, Error>?
-        sut.fecthGithubRepositories(request: requestStub) { result in
+        sut.fecthGithubRepositories(page: 1, request: requestStub) { result in
             resultToBeCompared = result
         }
         
@@ -23,6 +23,7 @@ final class GitHubServiceTests: XCTestCase {
         switch resultToBeCompared {
         case .success(let response):
             XCTAssertEqual(response, responseToBeCompared)
+            XCTAssertEqual(networkManagerSpy.pagePassed, 1)
         default:
             XCTFail("Failed because we're expecting success")
         }
@@ -33,7 +34,7 @@ final class GitHubServiceTests: XCTestCase {
         networkManagerSpy.completionToBeReturned = .failure(ErrorDummy.genericError)
         
         var resultToBeCompared: Result<GitHubResponse, Error>?
-        sut.fecthGithubRepositories(request: requestStub) { result in
+        sut.fecthGithubRepositories(page: 1, request: requestStub) { result in
             resultToBeCompared = result
         }
         
@@ -41,6 +42,7 @@ final class GitHubServiceTests: XCTestCase {
         
         switch resultToBeCompared {
         case .failure(let error):
+            XCTAssertEqual(networkManagerSpy.pagePassed, 1)
             XCTAssertEqual(error as? ErrorDummy, ErrorDummy.genericError)
         default:
             XCTFail("Failed because we're expecting failure")
