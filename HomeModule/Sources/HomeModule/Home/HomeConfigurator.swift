@@ -1,9 +1,10 @@
 import DataInterface
 import Domain
 import UIKit
+import Utils
 
 public final class HomeConfigurator {
-    public static func make() -> UIViewController? {
+    public static func make() -> ViewController? {
         let homeView = HomeView()
         guard let getRepositoriesUseCase = GetUseCaseRepositoriesFactory.make() else {
             return nil

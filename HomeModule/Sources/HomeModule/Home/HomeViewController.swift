@@ -1,15 +1,17 @@
 import UIKit
 import Utils
 
-public final class HomeViewController: UIViewController {
+public final class HomeViewController: UIViewController, ViewController {
     private let homeView: HomeViewProtocol
     private let interactor: HomeBusinessLogic
+    public weak var coordinator: Coordinator?
     
     public init(homeView: HomeViewProtocol, interactor: HomeBusinessLogic) {
         self.homeView = homeView
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
         self.homeView.delegate = self
+        self.title = "Github Swift"
     }
     
     required init?(coder: NSCoder) {
@@ -37,5 +39,7 @@ extension HomeViewController: HomeViewDelegate {
         }
     }
     
-    public func didTapCell(reposUrl: String) {}
+    public func didTapCell(reposUrl: String, repoName: String) {
+        coordinator?.navigate(to: .details(reposUrl, repoName))
+    }
 }

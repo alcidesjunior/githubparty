@@ -8,8 +8,8 @@ import HomeModule
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
+    var coordinator: MainCoordinator?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -18,9 +18,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
+        let navigationController = UINavigationController()
+        coordinator = MainCoordinator(navigationController: navigationController)
         let homeViewController = HomeConfigurator.make()
-        window?.rootViewController = homeViewController
+        homeViewController?.coordinator = coordinator
+        UINavigationBar.appearance().barTintColor = .black
+        UINavigationBar.appearance().tintColor = .white
+        UINavigationBar.appearance().titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+        navigationController.navigationBar.isTranslucent = false
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        coordinator?.navigate(to: .home)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

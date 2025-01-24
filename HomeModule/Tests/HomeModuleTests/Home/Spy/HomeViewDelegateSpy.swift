@@ -10,10 +10,12 @@ final class HomeViewDelegateSpy: HomeViewDelegate {
     
     private(set) var didTapCellCalled = false
     private(set) var didTapCellPassed: String?
+    private(set) var didTapCellRepoNamePassed: String?
     
-    func didTapCell(reposUrl: String) {
+    func didTapCell(reposUrl: String, repoName: String) {
         didTapCellCalled = true
         didTapCellPassed = reposUrl
+        didTapCellRepoNamePassed = repoName
     }
     
     private(set) var displayErrorCalled = false

@@ -13,7 +13,6 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../DomainInterface"),
-        .package(path: "../TestUtils"),
         .package(path: "../Data"),
     ],
     targets: [

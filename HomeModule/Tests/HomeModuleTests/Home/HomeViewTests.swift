@@ -19,12 +19,14 @@ final class HomeViewTests: XCTestCase {
     }
     
     func test_didTap_whenCalled_shouldCallDidTapCell() {
-        let item: HomeModel = .fixture()
+        let item: HomeModel = .fixture(repositoryName: "repoName", reposUrl: "url")
         let viewModel: [HomeModel] = [item]
         sut.configure(with: viewModel)
         
         sut.tableView(UITableView(), didSelectRowAt: IndexPath(row: 0, section: 0))
         XCTAssertTrue(delegateSpy.didTapCellCalled)
+        XCTAssertEqual(delegateSpy.didTapCellPassed, "url")
+        XCTAssertEqual(delegateSpy.didTapCellRepoNamePassed, "repoName")
     }
     
     func test_willdisplay_whenIndexPathEqualToDataSourceCountMinusFive_shouldCallLoadMoreData() {
