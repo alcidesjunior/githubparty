@@ -13,7 +13,8 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../DomainInterface"),
-        .package(path: "../TestUtils")
+        .package(path: "../TestUtils"),
+        .package(path: "../Data"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -22,7 +23,7 @@ let package = Package(
             name: "Domain",
             dependencies: [
                 .product(name: "DomainInterface", package: "DomainInterface"),
-                .product(name: "TestUtils", package: "TestUtils")
+                .product(name: "Data", package: "Data"),
             ]
         ),
         .testTarget(

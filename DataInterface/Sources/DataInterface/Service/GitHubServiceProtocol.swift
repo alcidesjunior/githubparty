@@ -2,5 +2,5 @@ import Foundation
 import DomainInterface
 
 public protocol GitHubServiceProtocol {
-    func fecthGithubRepositories(request: RequestProtocol, completion: @escaping (Result<GitHubResponse, Error>) -> Void)
+    func fecthGithubRepositories(page: Int, request: RequestProtocol, completion: @escaping (Result<GitHubResponse, Error>) -> Void)
 }

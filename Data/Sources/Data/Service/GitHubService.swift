@@ -9,8 +9,8 @@ public final class GitHubService: GitHubServiceProtocol {
         self.networkManager = networkManager
     }
     
-    public func fecthGithubRepositories(request: RequestProtocol, completion: @escaping (Result<GitHubResponse, Error>) -> Void) {
-        networkManager.execute(request: request) { result in
+    public func fecthGithubRepositories(page: Int, request: RequestProtocol, completion: @escaping (Result<GitHubResponse, Error>) -> Void) {
+        networkManager.execute(page: page, request: request) { result in
             completion(result)
         }
     }

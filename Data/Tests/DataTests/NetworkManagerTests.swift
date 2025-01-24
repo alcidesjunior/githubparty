@@ -37,7 +37,7 @@ final class NetworkManagerTests: XCTestCase {
         
         var result: Result<DataModelDummy, Error>?
         
-        sut.execute(request: requestStub) { response in
+        sut.execute(page: 1, request: requestStub) { response in
             result = response
         }
         
@@ -69,7 +69,7 @@ final class NetworkManagerTests: XCTestCase {
         
         var result: Result<DataModelDummy, Error>?
         
-        sut.execute(request: requestStub) { response in
+        sut.execute(page: 1, request: requestStub) { response in
             result = response
         }
         
@@ -105,7 +105,7 @@ final class NetworkManagerTests: XCTestCase {
         
         var result: Result<DataModelDummy, Error>?
         
-        sut.execute(request: requestStub) { response in
+        sut.execute(page: 1, request: requestStub) { response in
             result = response
         }
         
@@ -127,7 +127,7 @@ final class NetworkManagerTests: XCTestCase {
         urlSessionStub.errorToReturn = NSError(domain: "com.example", code: 123, userInfo: nil)
         let mockError = NSError(domain: "com.example", code: 123, userInfo: nil)
         var result: Result<DataModelDummy, Error>?
-        sut.execute(request: requestStub) { response in
+        sut.execute(page: 1, request: requestStub) { response in
             result = response
         }
         
@@ -155,7 +155,7 @@ final class NetworkManagerTests: XCTestCase {
         urlSessionStub.responseToReturn = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
         jsonDecoderSpy.errorToBeThrow = mockError
         var result: Result<DataModelDummy, Error>?
-        sut.execute(request: requestStub) { response in
+        sut.execute(page: 1, request: requestStub) { response in
             result = response
         }
         
@@ -169,6 +169,57 @@ final class NetworkManagerTests: XCTestCase {
             XCTAssertEqual(error as? NetworkError, NetworkError.failedToDecode(mockError))
         case .success:
             XCTFail("Expected failure, but got success")
+        }
+    }
+    
+    func test_execute_whenPassAValueGreaterThanZeroToPage_requestBuilderShouldContainsCorrectParameters() {
+        let expectedDecodedResponse = DataModelDummy(name: "Alcides", age: 30)
+        let requestStub = RequestProtocolStub(path: "example.com", method: .get, encoding: .json)
+        let jsonResponse = "{\"name\": \"Alcides\", \"age\": 30}"
+
+        guard let mockResponseData = jsonResponse.data(using: .utf8) else {
+            XCTFail("Fail when try to encode mock response data")
+            return
+        }
+        
+        guard let url = URL(string: "https://example.com") else {
+            XCTFail("Error when try unwrap url")
+            return
+        }
+        
+        let validResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+        urlSessionStub.responseToReturn = validResponse
+        urlSessionStub.dataToReturn = mockResponseData
+        requestStub.body = ["key":"value"]
+        var result: Result<DataModelDummy, Error>?
+        
+        sut.execute(page: 1, request: requestStub) { response in
+            result = response
+        }
+        
+        if let body = requestBuilderSpy.setBodyPassed {
+            do {
+                let data = try JSONEncoder().encode(body)
+                let decodedBody = try JSONDecoder().decode([String: String].self, from: data)
+                XCTAssertTrue(decodedBody.contains { $0.key == "page" && $0.value == "1" })
+            } catch {
+                XCTFail("Fail when try to decode data")
+            }
+        } else {
+            XCTFail("setBodyPassed got nil")
+        }
+        
+        guard let unwrappedResult = result else {
+            XCTFail("Result was not set")
+            return
+        }
+        
+        switch unwrappedResult {
+        case .success(let decodedResponse):
+            XCTAssertEqual(decodedResponse.name, expectedDecodedResponse.name)
+            XCTAssertEqual(decodedResponse.age, expectedDecodedResponse.age)
+        case .failure(let error):
+            XCTFail("Expected success, but got failure: \(error)")
         }
     }
 }

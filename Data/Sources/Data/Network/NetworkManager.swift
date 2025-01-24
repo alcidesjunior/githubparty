@@ -1,13 +1,13 @@
 import DataInterface
 import Foundation
 
-final class NetworkManager: NetworkManagerProtocol {
+public final class NetworkManager: NetworkManagerProtocol {
     private let session: URLSession
     private let jsonDecoder: JSONDecoder
     
     private let requestBuilder: RequestBuilderProtocol
     
-    init(
+    public init(
         session: URLSession,
         jsonDecoder: JSONDecoder,
         requestBuilder: RequestBuilderProtocol
@@ -17,10 +17,13 @@ final class NetworkManager: NetworkManagerProtocol {
         self.requestBuilder = requestBuilder
     }
     
-    func execute<T: Codable>(request: RequestProtocol, completion: @escaping (Result<T, Error>) -> Void) {
+    public func execute<T: Codable>(page: Int, request: RequestProtocol, completion: @escaping (Result<T, Error>) -> Void) {
         requestBuilder.setMethod(request.method)
 
-        if let body = request.body {
+        if var body = request.body as? [String: String] {
+            if page > 0 {
+                body["page"] = String(page)
+            }
             do {
                 try requestBuilder.setBody(
                     body: body,
@@ -54,7 +57,6 @@ final class NetworkManager: NetworkManagerProtocol {
             }
             
             do {
-                self.jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
                 let decodedData = try self.jsonDecoder.decode(T.self, from: jsonData)
                 completion(.success(decodedData))
             } catch let error {

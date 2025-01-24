@@ -1,7 +1,7 @@
 import Foundation
 
-public enum ErrorDummy: Error {
-    case completionCantBeNil
-    case wrongTypePassed
-    case genericError
+public enum ErrorDummy: String, Error {
+    case completionCantBeNil = "completion nil"
+    case wrongTypePassed = "passed wrong type"
+    case genericError = "generic error"
 }
