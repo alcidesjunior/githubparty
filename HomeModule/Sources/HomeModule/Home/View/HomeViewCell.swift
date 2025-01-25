@@ -2,6 +2,7 @@ import Domain
 import Foundation
 import UIKit
 import Utils
+import Kingfisher
 
 public protocol HomeViewCellProtocol: UITableViewCell {
     func configure(with viewModel: HomeModel)
@@ -13,16 +14,18 @@ public final class HomeViewCell: UITableViewCell {
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = .boldSystemFont(ofSize: 18)
+        label.textColor = .black
         return label
     }()
     
     private lazy var repositoryDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
+        label.textAlignment = .justified
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
     
@@ -32,6 +35,9 @@ public final class HomeViewCell: UITableViewCell {
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
+        [repositoryNameLabel, repositoryDescriptionLabel].forEach {
+            stackView.addArrangedSubview($0)
+        }
         return stackView
     }()
     
@@ -47,8 +53,7 @@ public final class HomeViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.boldSystemFont(ofSize: 12)
-        label.setContentHuggingPriority(.required, for: .horizontal)
-        label.setContentCompressionResistancePriority(.required, for: .horizontal)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .blue
         return label
     }()
@@ -60,6 +65,9 @@ public final class HomeViewCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
         stackView.alignment = .center
+        [profileImageView, userNameLabel].forEach {
+            stackView.addArrangedSubview($0)
+        }
         return stackView
     }()
     
@@ -76,6 +84,7 @@ public final class HomeViewCell: UITableViewCell {
     private lazy var forkCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
         return label
     }()
@@ -84,6 +93,9 @@ public final class HomeViewCell: UITableViewCell {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
+        [forkIcon, forkCountLabel].forEach {
+            stack.addArrangedSubview($0)
+        }
         return stack
     }()
     
@@ -100,6 +112,7 @@ public final class HomeViewCell: UITableViewCell {
     private lazy var starCountLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
         return label
     }()
@@ -108,6 +121,9 @@ public final class HomeViewCell: UITableViewCell {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
+        [starIcon, starCountLabel].forEach {
+            stack.addArrangedSubview($0)
+        }
         return stack
     }()
     
@@ -123,17 +139,15 @@ public final class HomeViewCell: UITableViewCell {
         stack.spacing = 4
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.distribution = .fillEqually
+        [forkStackView, starStackView].forEach {
+            stack.addArrangedSubview($0)
+        }
         return stack
     }()
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
     }
     
     required init?(coder: NSCoder) {
@@ -145,7 +159,8 @@ extension HomeViewCell: HomeViewCellProtocol {
     public func configure(with viewModel: HomeModel) {
         repositoryNameLabel.text = viewModel.repositoryName
         repositoryDescriptionLabel.text = viewModel.description
-        profileImageView.loadImage(from: viewModel.profileImageUrl)
+        guard let url = URL(string: viewModel.profileImageUrl) else { return }
+        profileImageView.kf.setImage(with: url, placeholder: UIImage(systemName: "person.fill"))
         userNameLabel.text = viewModel.profileName
         forkCountLabel.text = String(viewModel.forkCount)
         starCountLabel.text = String(viewModel.starCount)
@@ -156,27 +171,8 @@ extension HomeViewCell: ViewCode {
     public func setupComponent() {
         contentView.addSubview(container)
         container.addSubview(mainStackView)
-        [repositoryNameLabel, repositoryDescriptionLabel].forEach {
-            mainStackView.addArrangedSubview($0)
-        }
-        
         container.addSubview(profileStackView)
-        [profileImageView, userNameLabel].forEach {
-            profileStackView.addArrangedSubview($0)
-        }
-        
-        [forkIcon, forkCountLabel].forEach {
-            forkStackView.addArrangedSubview($0)
-        }
-        
-        [starIcon, starCountLabel].forEach {
-            starStackView.addArrangedSubview($0)
-        }
-        
         container.addSubview(footerStackView)
-        [forkStackView, starStackView].forEach {
-            footerStackView.addArrangedSubview($0)
-        }
     }
     
     public func setupConstrain() {
@@ -187,6 +183,38 @@ extension HomeViewCell: ViewCode {
         constrainFooterStackView()
         constrainForkIcon()
         constrainStarIcon()
+    }
+    
+    private func constrainContainer() {
+        NSLayoutConstraint.activate(
+            [
+                container.topAnchor.constraint(equalTo: contentView.topAnchor),
+                container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                container.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ]
+        )
+    }
+    
+    private func constrainMainStack() {
+        NSLayoutConstraint.activate(
+            [
+                mainStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
+                mainStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
+                mainStackView.trailingAnchor.constraint(equalTo: profileStackView.leadingAnchor, constant: -8),
+                mainStackView.bottomAnchor.constraint(equalTo: footerStackView.topAnchor, constant: -16)
+            ]
+        )
+    }
+    
+    private func constrainProfileStack() {
+        NSLayoutConstraint.activate(
+            [
+                profileStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
+                profileStackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
+                profileStackView.widthAnchor.constraint(equalToConstant: 90)
+            ]
+        )
     }
     
     private func constrainProfileImage() {
@@ -215,42 +243,10 @@ extension HomeViewCell: ViewCode {
             ]
         )
     }
-    
-    private func constrainContainer() {
-        NSLayoutConstraint.activate(
-            [
-                container.topAnchor.constraint(equalTo: topAnchor),
-                container.leadingAnchor.constraint(equalTo: leadingAnchor),
-                container.trailingAnchor.constraint(equalTo: trailingAnchor),
-                container.bottomAnchor.constraint(equalTo: bottomAnchor)
-            ]
-        )
-    }
-    
-    private func constrainMainStack() {
-        NSLayoutConstraint.activate(
-            [
-                mainStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
-                mainStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16)
-            ]
-        )
-    }
-    
-    private func constrainProfileStack() {
-        NSLayoutConstraint.activate(
-            [
-                profileStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
-                profileStackView.leadingAnchor.constraint(equalTo: mainStackView.trailingAnchor, constant: 8),
-                profileStackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
-                profileStackView.widthAnchor.constraint(lessThanOrEqualToConstant: 90)
-            ]
-        )
-    }
-            
+
     private func constrainFooterStackView() {
         NSLayoutConstraint.activate(
             [
-                footerStackView.topAnchor.constraint(equalTo: mainStackView.bottomAnchor, constant: 16),
                 footerStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
                 footerStackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -16)
             ]

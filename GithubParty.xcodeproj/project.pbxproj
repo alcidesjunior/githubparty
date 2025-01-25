@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A403B932D4587B400D0D49E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1A403B922D4587B400D0D49E /* Kingfisher */; };
 		1A7146592D408C75009632B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7146582D408C75009632B3 /* AppDelegate.swift */; };
 		1A71465B2D408C75009632B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A71465A2D408C75009632B3 /* SceneDelegate.swift */; };
 		1A7146622D408C77009632B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A7146612D408C77009632B3 /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 				1ACB10342D40AEE2008FDBB5 /* DomainInterface in Frameworks */,
 				1ACB103C2D417744008FDBB5 /* TestUtils in Frameworks */,
 				1ACB10322D40AEE2008FDBB5 /* Domain in Frameworks */,
+				1A403B932D4587B400D0D49E /* Kingfisher in Frameworks */,
 				1ACB10362D40AEE2008FDBB5 /* HomeModule in Frameworks */,
 				1ACB10302D40AEE2008FDBB5 /* DataInterface in Frameworks */,
 				1ACB102E2D40AEE2008FDBB5 /* Data in Frameworks */,
@@ -154,6 +156,7 @@
 				1ACB10352D40AEE2008FDBB5 /* HomeModule */,
 				1ACB10372D40AEE2008FDBB5 /* Utils */,
 				1ACB103B2D417744008FDBB5 /* TestUtils */,
+				1A403B922D4587B400D0D49E /* Kingfisher */,
 			);
 			productName = GithubParty;
 			productReference = 1A7146552D408C75009632B3 /* GithubParty.app */;
@@ -205,6 +208,9 @@
 				Base,
 			);
 			mainGroup = 1A71464C2D408C75009632B3;
+			packageReferences = (
+				1A403B912D4587B400D0D49E /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 1A7146562D408C75009632B3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -327,7 +333,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -384,7 +390,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -401,6 +407,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H5762RAVC8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GithubParty/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -427,6 +434,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = H5762RAVC8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GithubParty/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -520,7 +528,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		1A403B912D4587B400D0D49E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		1A403B922D4587B400D0D49E /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A403B912D4587B400D0D49E /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		1ACB102D2D40AEE2008FDBB5 /* Data */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Data;

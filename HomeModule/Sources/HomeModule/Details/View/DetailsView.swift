@@ -91,7 +91,6 @@ extension DetailsView: UITableViewDelegate, UITableViewDataSource {
         }
         
         let currentDataSourceRow = dataSource[indexPath.row]
-        cell.selectionStyle = .none
         cell.configure(with: currentDataSourceRow)
         cell.setNeedsLayout()
         

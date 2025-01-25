@@ -38,7 +38,6 @@ public final class HomeInteractor: HomeBusinessLogic {
             case .failure(let error):
                 self.presenter?.displayStopAnimation()
                 self.presenter?.displayError(message: error.localizedDescription)
-                //TODO: The next step is to handle the errors
                 break
             }
         }

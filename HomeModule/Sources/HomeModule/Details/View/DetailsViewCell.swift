@@ -150,7 +150,8 @@ extension DetailsViewCell: DetailsViewCellProtocol {
         pullTitleLabel.text = viewModel.title
         pullBodyLabel.text = viewModel.body
         pullDateLabel.text = viewModel.createdAt
-        profileImageView.loadImage(from: viewModel.avatarUrl)
+        guard let url = URL(string: viewModel.avatarUrl) else { return }
+        profileImageView.kf.setImage(with: url, placeholder: UIImage(systemName: "person.fill"))
         userNameLabel.text = viewModel.login
     }
 }
