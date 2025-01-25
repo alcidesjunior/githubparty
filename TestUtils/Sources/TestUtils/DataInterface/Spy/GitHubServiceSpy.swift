@@ -17,4 +17,16 @@ public final class GitHubServiceSpy: GitHubServiceProtocol {
             completion(result)
         }
     }
+    
+    public private(set) var fecthGithubRepositoryDetailsCalled = false
+    public private(set) var fecthGithubRepositoryDetailRequestPassed: RequestProtocol?
+    public var fecthGithubRepositoryDetailsCompletionToBeReturned: Result<[GitHubDetailsResponse], Error>?
+    
+    public func fecthGithubRepositoryDetails(request: RequestProtocol, completion: @escaping (Result<[GitHubDetailsResponse], Error>) -> Void) {
+        fecthGithubRepositoryDetailsCalled = true
+        fecthGithubRepositoryDetailRequestPassed = request
+        if let result = fecthGithubRepositoryDetailsCompletionToBeReturned {
+            completion(result)
+        }
+    }
 }

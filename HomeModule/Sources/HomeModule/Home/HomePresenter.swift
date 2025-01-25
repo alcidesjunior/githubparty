@@ -12,6 +12,17 @@ public final class HomePresenter: HomeDisplayLogic {
     weak var view: HomeViewProtocol?
     
     public func displayRepositories(_ viewModel: [HomeModel]) {
+        let viewModel: [HomeModel] = viewModel.map {
+            .init(
+                repositoryName: $0.repositoryName,
+                description: $0.description,
+                profileImageUrl: $0.profileImageUrl,
+                profileName: $0.profileName,
+                forkCount: $0.forkCount,
+                starCount: $0.forkCount,
+                reposUrl: $0.reposUrl.replacingOccurrences(of: "{/number}", with: "")
+            )
+        }
         view?.configure(with: viewModel)
     }
     

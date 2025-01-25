@@ -187,7 +187,6 @@ extension HomeViewCell: ViewCode {
         constrainFooterStackView()
         constrainForkIcon()
         constrainStarIcon()
-        
     }
     
     private func constrainProfileImage() {

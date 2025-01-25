@@ -29,6 +29,15 @@ final class HomeViewTests: XCTestCase {
         XCTAssertEqual(delegateSpy.didTapCellRepoNamePassed, "repoName")
     }
     
+    func test_didTap_whenDataSourceNotContainsItem_shouldNotCallDidTapCell() {
+        let item: HomeModel = .fixture(repositoryName: "repoName", reposUrl: "url")
+        let viewModel: [HomeModel] = [item]
+        sut.configure(with: viewModel)
+        
+        sut.tableView(UITableView(), didSelectRowAt: IndexPath(row: 3, section: 0))
+        XCTAssertFalse(delegateSpy.didTapCellCalled)
+    }
+    
     func test_willdisplay_whenIndexPathEqualToDataSourceCountMinusFive_shouldCallLoadMoreData() {
         let item: HomeModel = .fixture()
         let viewModel: [HomeModel] = [item, item, item, item, item, item, item, item, item, item, item]

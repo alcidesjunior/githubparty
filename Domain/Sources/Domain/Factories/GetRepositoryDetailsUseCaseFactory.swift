@@ -3,9 +3,9 @@ import DataInterface
 import DomainInterface
 import Foundation
 
-public final class GetRepositoriesUseCaseFactory {
-    public static func make() -> GetRepositoriesUseCasing? {
-        guard let url = URL(string: ApiSetup.baseURL.rawValue) else {
+public final class GetRepositoryDetailsUseCaseFactory {
+    public static func make(url: String) -> GetRepositoryDetailsUseCasing? {
+        guard let url = URL(string: url) else {
             return nil
         }
         let request = URLRequest(url: url)
@@ -19,11 +19,9 @@ public final class GetRepositoriesUseCaseFactory {
             requestBuilder: requestBuilder
         )
         let service = GitHubService(networkManager: networkManager)
-        let repository = GitHubRepository(service: service)
-        let homeRequest = HomeRequest()
-        let useCase = GetRepositoriesUseCase(
-            repository: repository,
-            request: homeRequest
+        let repository = GitHubRepositoryDetails(service: service)
+        let useCase = GetRepositoryDetailsUseCase(
+            repository: repository
         )
         
         return useCase

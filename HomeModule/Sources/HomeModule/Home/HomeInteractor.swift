@@ -32,7 +32,7 @@ public final class HomeInteractor: HomeBusinessLogic {
                 }
                 self.presenter?.displayStopAnimation()
                 self.presenter?.displayRepositories(viewModel)
-                if viewModel.count > 0, viewModel.count > self.itemsPerPage {
+                if viewModel.count > 0, viewModel.count >= self.itemsPerPage {
                     self.currentPage += 1
                 }
             case .failure(let error):
@@ -54,7 +54,7 @@ extension HomeModel {
             profileName: item.owner.login,
             forkCount: item.forks,
             starCount: item.stars,
-            reposUrl: item.owner.reposUrl
+            reposUrl: item.pullsUrl
         )
     }
 }

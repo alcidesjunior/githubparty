@@ -15,6 +15,8 @@ public struct GitHubItem: Codable, Equatable {
     public let stargazersCount: Int
     public let forksCount: Int
     public let owner: GitHubOwner
+    public let pullsUrl: String
+    
 
     public var stars: Int { stargazersCount }
     public var forks: Int { forksCount }
@@ -26,6 +28,7 @@ public struct GitHubItem: Codable, Equatable {
         case stargazersCount = "stargazers_count"
         case forksCount = "forks_count"
         case owner
+        case pullsUrl = "pulls_url"
     }
     
     public init(
@@ -34,7 +37,8 @@ public struct GitHubItem: Codable, Equatable {
         description: String?,
         stargazersCount: Int,
         forksCount: Int,
-        owner: GitHubOwner
+        owner: GitHubOwner,
+        pullsUrl: String
     ) {
         self.id = id
         self.name = name
@@ -42,23 +46,22 @@ public struct GitHubItem: Codable, Equatable {
         self.stargazersCount = stargazersCount
         self.forksCount = forksCount
         self.owner = owner
+        self.pullsUrl = pullsUrl
     }
 }
 
 public struct GitHubOwner: Codable, Equatable {
     public let login: String
     public let avatarUrl: String
-    public let reposUrl: String
     
     enum CodingKeys: String, CodingKey {
         case login
         case avatarUrl = "avatar_url"
-        case reposUrl = "repos_url"
+        
     }
     
-    public init(login: String, avatarUrl: String, reposUrl: String) {
+    public init(login: String, avatarUrl: String) {
         self.login = login
         self.avatarUrl = avatarUrl
-        self.reposUrl = reposUrl
     }
 }
