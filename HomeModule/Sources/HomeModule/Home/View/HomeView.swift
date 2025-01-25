@@ -36,7 +36,6 @@ public final class HomeView: UIView, HomeViewProtocol {
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.register(HomeViewCell.self, forCellReuseIdentifier: Constants.cellID)
         tv.rowHeight = UITableView.automaticDimension
-        tv.estimatedRowHeight = 200
         tv.delegate = self
         tv.dataSource = self
         return tv
@@ -110,7 +109,6 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
         }
         
         let currentDataSourceRow = dataSource[indexPath.row]
-        cell.selectionStyle = .none
         cell.configure(with: currentDataSourceRow)
         cell.setNeedsLayout()
         
@@ -123,10 +121,6 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
             reposUrl: dataSource[indexPath.row].reposUrl,
             repoName: dataSource[indexPath.row].repositoryName
         )
-    }
-    
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        120
     }
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
