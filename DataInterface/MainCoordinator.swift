@@ -22,15 +22,14 @@ public final class MainCoordinator: Coordinator {
             viewController.coordinator = self
             navigationController?.pushViewController(viewController, animated: true)
             break
-        case .pop:
-            navigationController?.popViewController(animated: true)
-        case .dismiss:
-            navigationController?.dismiss(animated: true, completion: nil)
         case .detailsWebView(let url):
             let viewController = DetailsWebViewController(url: url)
             viewController.coordinator = self
             navigationController?.present(viewController, animated: true)
-            break
+        case .pop:
+            navigationController?.popViewController(animated: true)
+        case .dismiss:
+            navigationController?.dismiss(animated: true, completion: nil)
         }
     }
 }
