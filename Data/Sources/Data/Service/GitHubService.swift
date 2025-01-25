@@ -14,4 +14,8 @@ public final class GitHubService: GitHubServiceProtocol {
             completion(result)
         }
     }
+    
+    public func fecthGithubRepositoryDetails(request: RequestProtocol, completion: @escaping (Result<[GitHubDetailsResponse], Error>) -> Void) {
+        networkManager.execute(page: 0, request: request, completion: completion)
+    }
 }

@@ -55,7 +55,7 @@ public final class RequestBuilder: RequestBuilderProtocol {
     }
     
     public func setUrl(_ path: String) {
-        guard let url = urlRequest.url?.absoluteString, url.contains(path) else {
+        guard let url = urlRequest.url?.absoluteString, url.contains(path), !path.isEmpty else {
             urlRequest.url = urlRequest.url?.appendingPathComponent(path)
             return
         }

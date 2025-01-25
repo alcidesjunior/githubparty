@@ -8,7 +8,8 @@ public extension GitHubItem {
         description: String? = nil,
         stars: Int = 1,
         forks: Int = 1,
-        owner: GitHubOwner = .fixture()
+        owner: GitHubOwner = .fixture(),
+        pullsUrl: String = ""
     ) -> Self {
         .init(
             id: id,
@@ -16,7 +17,8 @@ public extension GitHubItem {
             description: description,
             stargazersCount: stars,
             forksCount: forks,
-            owner: owner
+            owner: owner,
+            pullsUrl: pullsUrl
         )
     }
 }

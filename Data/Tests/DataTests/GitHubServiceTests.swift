@@ -48,4 +48,41 @@ final class GitHubServiceTests: XCTestCase {
             XCTFail("Failed because we're expecting failure")
         }
     }
+    
+    func test_fetchGitHubRepositoryDetails_whenSucceed_shouldHaveCorrectData() {
+        let requestStub = RequestProtocolStub(path: "example.com", method: .get, encoding: .json)
+        let responseToBeCompared = [GitHubDetailsResponse.fixture()]
+        networkManagerSpy.completionToBeReturned = .success(responseToBeCompared)
+        
+        var resultToBeCompared: Result<[GitHubDetailsResponse], Error>?
+        sut.fecthGithubRepositoryDetails(request: requestStub) { result in
+            resultToBeCompared = result
+        }
+        
+        XCTAssertTrue(networkManagerSpy.executeCalled)
+        
+        switch resultToBeCompared {
+        case .success(let response):
+            XCTAssertEqual(response, responseToBeCompared)
+        default:
+            XCTFail("Fail because we're expecting success")
+        }
+    }
+    
+    func test_fetchGitHubRepositoryDetails_whenFail() {
+        let requestStub = RequestProtocolStub(path: "example.com", method: .get, encoding: .json)
+        networkManagerSpy.completionToBeReturned = .failure(ErrorDummy.genericError)
+        
+        var resultToBeCompared: Result<[GitHubDetailsResponse], Error>?
+        sut.fecthGithubRepositoryDetails(request: requestStub) { result in
+            resultToBeCompared = result
+        }
+        
+        switch resultToBeCompared {
+        case .failure(let error):
+            XCTAssertEqual(error as? ErrorDummy, .genericError)
+        default:
+            XCTFail("Fail because we're expecting failure value but got success")
+        }
+    }
 }

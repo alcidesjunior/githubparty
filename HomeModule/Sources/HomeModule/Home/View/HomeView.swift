@@ -19,6 +19,10 @@ public protocol HomeViewDelegate: AnyObject {
 public final class HomeView: UIView, HomeViewProtocol {
     public weak var delegate: HomeViewDelegate?
     
+    private enum Constants {
+        static let cellID: String = "homeViewCell"
+    }
+    
     private var dataSource: [HomeModel] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -30,7 +34,7 @@ public final class HomeView: UIView, HomeViewProtocol {
     private lazy var homeTableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.register(HomeViewCell.self, forCellReuseIdentifier: "homeViewCell")
+        tv.register(HomeViewCell.self, forCellReuseIdentifier: Constants.cellID)
         tv.rowHeight = UITableView.automaticDimension
         tv.estimatedRowHeight = 200
         tv.delegate = self
@@ -82,15 +86,15 @@ extension HomeView: ViewCode {
     
     public func setupConstrain() {
         NSLayoutConstraint.activate([
-            homeTableView.topAnchor.constraint(equalTo: self.topAnchor),
-            homeTableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            homeTableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            homeTableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            homeTableView.topAnchor.constraint(equalTo: topAnchor),
+            homeTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            homeTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            homeTableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: homeTableView.centerXAnchor),
-            activityIndicator.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40)
+            activityIndicator.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40)
         ])
     }
 }
@@ -101,7 +105,7 @@ extension HomeView: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "homeViewCell") as? HomeViewCellProtocol, dataSource.indices.contains(indexPath.row) else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellID) as? HomeViewCellProtocol, dataSource.indices.contains(indexPath.row) else {
             return UITableViewCell()
         }
         

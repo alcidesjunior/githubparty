@@ -19,11 +19,11 @@ final class HomePresenterTests: XCTestCase {
     }()
     
     func test_displayRepositories_whenCalled_shouldConfigureView() {
-        let viewModelToBeCompared: [HomeModel] = [.fixture()]
+        let viewModelToBeCompared: [HomeModel] = [.fixture(reposUrl: "example.com/{/number}")]
         sut.displayRepositories(viewModelToBeCompared)
         
         XCTAssertTrue(viewSpy.configureCalled)
-        XCTAssertEqual(viewSpy.configurePassed, viewModelToBeCompared)
+        XCTAssertEqual(viewSpy.configurePassed, [.fixture(reposUrl: "example.com/")])
     }
     
     func test_displayStartAnimation_whenCalled_shouldStartAnimationView() {

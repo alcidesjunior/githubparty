@@ -18,10 +18,14 @@ public final class MainCoordinator: Coordinator {
             viewController.coordinator = self
             navigationController?.pushViewController(viewController, animated: true)
         case .details(let reposUrl, let repoName):
-            let viewController = DetailsViewController(reposUrl: reposUrl, repositoryName: repoName)
+            guard let viewController = DetailsConfigurator.make(reposUrl: reposUrl, repositoryName: repoName) else { return }
             viewController.coordinator = self
             navigationController?.pushViewController(viewController, animated: true)
             break
+        case .detailsWebView(let url):
+            let viewController = DetailsWebViewController(url: url)
+            viewController.coordinator = self
+            navigationController?.present(viewController, animated: true)
         case .pop:
             navigationController?.popViewController(animated: true)
         case .dismiss:

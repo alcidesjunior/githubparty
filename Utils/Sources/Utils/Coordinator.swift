@@ -4,6 +4,7 @@ import UIKit
 public enum NavigationDestination: Equatable {
     case home
     case details(_ reposUrl: String, _ repositoryName: String)
+    case detailsWebView(_ url: String)
     case pop
     case dismiss
 }

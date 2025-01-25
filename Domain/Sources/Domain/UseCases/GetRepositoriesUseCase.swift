@@ -15,8 +15,6 @@ public final class GetRepositoriesUseCase: GetRepositoriesUseCasing {
     }
     
     public func execute(page: Int, completion: @escaping (Result<GitHubResponse, Error>) -> Void) {
-        repository.fecthGithubRepositories(page: page, request: request) { result in
-            completion(result)
-        }
+        repository.fecthGithubRepositories(page: page, request: request, completion: completion)
     }
 }

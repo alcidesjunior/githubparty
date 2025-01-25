@@ -6,7 +6,7 @@ import Utils
 public final class HomeConfigurator {
     public static func make() -> ViewController? {
         let homeView = HomeView()
-        guard let getRepositoriesUseCase = GetUseCaseRepositoriesFactory.make() else {
+        guard let getRepositoriesUseCase = GetRepositoriesUseCaseFactory.make() else {
             return nil
         }
         let presenter = HomePresenter()
