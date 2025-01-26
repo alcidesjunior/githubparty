@@ -20,7 +20,10 @@ public protocol DetailsViewDelegate: AnyObject {
 
 public final class DetailsView: UIView, DetailsViewProtocol {
     public weak var delegate: DetailsViewDelegate?
-    
+    private enum Constants {
+        static let cellID: String = "detailsViewCell"
+        static let emptyMessage: String = "Nada por aqui..."
+    }
     private var dataSource: [HomeDetailsModel] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -32,7 +35,7 @@ public final class DetailsView: UIView, DetailsViewProtocol {
     private lazy var detailsTableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.register(DetailsViewCell.self, forCellReuseIdentifier: "detailsViewCell")
+        tv.register(DetailsViewCell.self, forCellReuseIdentifier: Constants.cellID)
         tv.rowHeight = UITableView.automaticDimension
         tv.delegate = self
         tv.dataSource = self
@@ -76,7 +79,7 @@ public final class DetailsView: UIView, DetailsViewProtocol {
     }
     
     public func displayEmptyState() {
-        detailsTableView.setEmptyState("Nada por aqui...")
+        detailsTableView.setEmptyState(Constants.emptyMessage)
     }
 }
 
@@ -86,7 +89,7 @@ extension DetailsView: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "detailsViewCell") as? DetailsViewCellProtocol, dataSource.indices.contains(indexPath.row) else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellID) as? DetailsViewCellProtocol, dataSource.indices.contains(indexPath.row) else {
             return UITableViewCell()
         }
         

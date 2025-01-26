@@ -93,7 +93,7 @@ extension HomeView: ViewCode {
         
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: homeTableView.centerXAnchor),
-            activityIndicator.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40)
+            activityIndicator.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -DS.Spacing.spacing40)
         ])
     }
 }

@@ -12,7 +12,7 @@ public final class DetailsViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: DS.Font.size20)
         return label
     }()
     
@@ -22,7 +22,7 @@ public final class DetailsViewCell: UITableViewCell {
         label.textAlignment = .justified
         label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: DS.Font.size14)
         return label
     }()
     
@@ -31,7 +31,7 @@ public final class DetailsViewCell: UITableViewCell {
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 10)
+        label.font = UIFont.boldSystemFont(ofSize: DS.Font.size10)
         label.textColor = .lightGray
         return label
     }()
@@ -39,7 +39,7 @@ public final class DetailsViewCell: UITableViewCell {
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = DS.Spacing.spacing8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         [pullTitleLabel, profileHorizontalStackView, pullBodyLabel].forEach {
             stackView.addArrangedSubview($0)
@@ -58,7 +58,7 @@ public final class DetailsViewCell: UITableViewCell {
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 10)
+        label.font = UIFont.boldSystemFont(ofSize: DS.Font.size10)
         label.textColor = .blue
         return label
     }()
@@ -66,7 +66,7 @@ public final class DetailsViewCell: UITableViewCell {
     private lazy var profileHorizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 4
+        stackView.spacing = DS.Spacing.spacing4
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillProportionally
         [profileImageView, profileVerticalStackView].forEach {
@@ -130,17 +130,17 @@ extension DetailsViewCell: ViewCode {
     
     private func constrainProfileImage() {
         NSLayoutConstraint.activate([
-            profileImageView.heightAnchor.constraint(equalToConstant: 20),
-            profileImageView.widthAnchor.constraint(equalToConstant: 20),
+            profileImageView.heightAnchor.constraint(equalToConstant: DS.Dimension.size20),
+            profileImageView.widthAnchor.constraint(equalToConstant: DS.Dimension.size20),
         ])
     }
     
     private func constrainMainStack() {
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
-            mainStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
-            mainStackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
-            mainStackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -16)
+            mainStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: DS.Spacing.spacing16),
+            mainStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: DS.Spacing.spacing16),
+            mainStackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -DS.Spacing.spacing16),
+            mainStackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -DS.Spacing.spacing16)
         ])
     }
 }
@@ -151,7 +151,7 @@ extension DetailsViewCell: DetailsViewCellProtocol {
         pullBodyLabel.text = viewModel.body
         pullDateLabel.text = viewModel.createdAt
         guard let url = URL(string: viewModel.avatarUrl) else { return }
-        profileImageView.kf.setImage(with: url, placeholder: UIImage(systemName: "person.fill"))
+        profileImageView.kf.setImage(with: url, placeholder: UIImage(systemName: DS.Other.defaultImage))
         userNameLabel.text = viewModel.login
     }
 }

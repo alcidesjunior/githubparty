@@ -14,7 +14,7 @@ public final class HomeViewCell: UITableViewCell {
         label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .boldSystemFont(ofSize: 18)
+        label.font = .boldSystemFont(ofSize: DS.Font.size18)
         label.textColor = .black
         return label
     }()
@@ -25,7 +25,7 @@ public final class HomeViewCell: UITableViewCell {
         label.lineBreakMode = .byTruncatingTail
         label.textAlignment = .justified
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: DS.Font.size14)
         return label
     }()
     
@@ -52,7 +52,7 @@ public final class HomeViewCell: UITableViewCell {
     private lazy var userNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.font = UIFont.boldSystemFont(ofSize: DS.Font.size12)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .blue
         return label
@@ -61,7 +61,7 @@ public final class HomeViewCell: UITableViewCell {
     private lazy var profileStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = DS.Spacing.spacing4
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill
         stackView.alignment = .center
@@ -74,7 +74,7 @@ public final class HomeViewCell: UITableViewCell {
     private lazy var forkIcon: UIImageView = {
         let icon = UIImageView()
         if #available(iOS 13.0, *) {
-            icon.image = UIImage(systemName: "arrow.triangle.branch")
+            icon.image = UIImage(systemName: DS.Other.forkIcon)
         }
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.tintColor = .orange
@@ -83,7 +83,7 @@ public final class HomeViewCell: UITableViewCell {
     
     private lazy var forkCountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: DS.Font.size16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
         return label
@@ -102,7 +102,7 @@ public final class HomeViewCell: UITableViewCell {
     private lazy var starIcon: UIImageView = {
         let icon = UIImageView()
         if #available(iOS 13.0, *) {
-            icon.image = UIImage(systemName: "star.fill")
+            icon.image = UIImage(systemName: DS.Other.starIcon)
         }
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.tintColor = .orange
@@ -111,7 +111,7 @@ public final class HomeViewCell: UITableViewCell {
     
     private lazy var starCountLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: DS.Font.size16)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .orange
         return label
@@ -160,7 +160,7 @@ extension HomeViewCell: HomeViewCellProtocol {
         repositoryNameLabel.text = viewModel.repositoryName
         repositoryDescriptionLabel.text = viewModel.description
         guard let url = URL(string: viewModel.profileImageUrl) else { return }
-        profileImageView.kf.setImage(with: url, placeholder: UIImage(systemName: "person.fill"))
+        profileImageView.kf.setImage(with: url, placeholder: UIImage(systemName: DS.Other.defaultImage))
         userNameLabel.text = viewModel.profileName
         forkCountLabel.text = String(viewModel.forkCount)
         starCountLabel.text = String(viewModel.starCount)
@@ -199,10 +199,10 @@ extension HomeViewCell: ViewCode {
     private func constrainMainStack() {
         NSLayoutConstraint.activate(
             [
-                mainStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
-                mainStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
-                mainStackView.trailingAnchor.constraint(equalTo: profileStackView.leadingAnchor, constant: -8),
-                mainStackView.bottomAnchor.constraint(equalTo: footerStackView.topAnchor, constant: -16)
+                mainStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: DS.Spacing.spacing16),
+                mainStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: DS.Spacing.spacing16),
+                mainStackView.trailingAnchor.constraint(equalTo: profileStackView.leadingAnchor, constant: -DS.Spacing.spacing8),
+                mainStackView.bottomAnchor.constraint(equalTo: footerStackView.topAnchor, constant: -DS.Spacing.spacing16)
             ]
         )
     }
@@ -210,9 +210,9 @@ extension HomeViewCell: ViewCode {
     private func constrainProfileStack() {
         NSLayoutConstraint.activate(
             [
-                profileStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16),
-                profileStackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16),
-                profileStackView.widthAnchor.constraint(equalToConstant: 90)
+                profileStackView.topAnchor.constraint(equalTo: container.topAnchor, constant: DS.Spacing.spacing16),
+                profileStackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -DS.Spacing.spacing16),
+                profileStackView.widthAnchor.constraint(equalToConstant: DS.Dimension.size90)
             ]
         )
     }
@@ -220,8 +220,8 @@ extension HomeViewCell: ViewCode {
     private func constrainProfileImage() {
         NSLayoutConstraint.activate(
             [
-                profileImageView.heightAnchor.constraint(equalToConstant: 40),
-                profileImageView.widthAnchor.constraint(equalToConstant: 40)
+                profileImageView.heightAnchor.constraint(equalToConstant: DS.Dimension.size40),
+                profileImageView.widthAnchor.constraint(equalToConstant: DS.Dimension.size40)
             ]
         )
     }
@@ -229,8 +229,8 @@ extension HomeViewCell: ViewCode {
     private func constrainForkIcon() {
         NSLayoutConstraint.activate(
             [
-                forkIcon.heightAnchor.constraint(equalToConstant: 20),
-                forkIcon.widthAnchor.constraint(equalToConstant: 20)
+                forkIcon.heightAnchor.constraint(equalToConstant: DS.Dimension.size20),
+                forkIcon.widthAnchor.constraint(equalToConstant: DS.Dimension.size20)
             ]
         )
     }
@@ -238,8 +238,8 @@ extension HomeViewCell: ViewCode {
     private func constrainStarIcon() {
         NSLayoutConstraint.activate(
             [
-                starIcon.heightAnchor.constraint(equalToConstant: 20),
-                starIcon.widthAnchor.constraint(equalToConstant: 20)
+                starIcon.heightAnchor.constraint(equalToConstant: DS.Dimension.size20),
+                starIcon.widthAnchor.constraint(equalToConstant: DS.Dimension.size20)
             ]
         )
     }
@@ -247,8 +247,8 @@ extension HomeViewCell: ViewCode {
     private func constrainFooterStackView() {
         NSLayoutConstraint.activate(
             [
-                footerStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16),
-                footerStackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -16)
+                footerStackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: DS.Spacing.spacing16),
+                footerStackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -DS.Spacing.spacing16)
             ]
         )
     }
